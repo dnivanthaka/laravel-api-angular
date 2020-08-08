@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangePasswordAuthRequest;
 use App\Http\Requests\DeleteUserAuthRequest;
 use App\Http\Requests\GetUserAuthRequest;
+use App\Http\Requests\GetUsersListRequest;
 use App\Http\Requests\LoginAuthRequest;
 use App\Http\Requests\RegisterAuthRequest;
 use App\Http\Requests\UpdateUserAuthRequest;
@@ -34,11 +35,27 @@ class UserController extends Controller
     }
 
     /**
-    * Returns the current logged user
+    * Returns a user
     */
     public function getUser(GetUserAuthRequest $request)
     {
         return response()->json(User::findOrFail($request->id));
+    }
+
+    /**
+    * Returns a user
+    */
+    public function getUsers(Request $request)
+    {
+        return response()->json(User::all());
+    }
+
+    /**
+    * Returns the current logged user
+    */
+    public function getCurrentUser(Request $request)
+    {
+        return response()->json($this->guard()->user());
     }
 
     /**

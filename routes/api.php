@@ -23,8 +23,10 @@ Route::group([
     'prefix' => 'auth'
 
 ], function ($router) {
-    Route::get('logout', 'Api\UserController@logout');
-    Route::get('refresh', 'Api\UserController@refresh');
+    Route::post('logout', 'Api\UserController@logout');
+    Route::post('refresh', 'Api\UserController@refresh');
+    Route::get('users', 'Api\UserController@getUsers');
+    Route::get('user', 'Api\UserController@getCurrentUser');
     Route::get('user/{id}', 'Api\UserController@getUser');
     Route::delete('user/{id}', 'Api\UserController@delete');
     Route::put('user/{id}', 'Api\UserController@update');
