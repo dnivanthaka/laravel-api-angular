@@ -11,4 +11,12 @@ export class DataService {
   getUsers(){
     return this.http.get('http://localhost:8080/api/auth/users');
   }
+
+  deleteUser(id){
+    return this.http.delete('http://localhost:8080/api/auth/user/'+id);
+  }
+
+  resetPassword(id, password){
+    return this.http.post('http://localhost:8080/api/auth/user/'+id+'/password', {password: password});
+  }
 }

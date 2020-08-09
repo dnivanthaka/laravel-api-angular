@@ -11,27 +11,29 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 
 export class SignupComponent implements OnInit {
-  registerForm: FormGroup;
-  errors = null;
+  public registerForm: FormGroup;
+  public errors = null;
+  public successMessage: boolean
 
   constructor(
     public router: Router,
     public fb: FormBuilder,
-    public authService: AuthService
+    public authService: AuthService,
   ) {
     this.registerForm = this.fb.group({
       name: [''],
       email: [''],
       address: [''],
       password: [''],
-      password_confirmation: ['']
+      password_confirmation: [''],
+      
     })
+    this.successMessage = false;
   }
 
   ngOnInit() { }
 
   onSubmit() {
-    
     this.authService.register(this.registerForm.value).subscribe(
       result => {
         console.log(result)
@@ -42,13 +44,14 @@ export class SignupComponent implements OnInit {
           const validationErrors = error.error.errors;
           this.errors = validationErrors;
           }else if(error.status === 200){
-
           }
         }
       },
       () => {
         this.registerForm.reset()
-        this.router.navigate(['login']);
+        //this.router.navigate(['login']);
+        this.errors = null;
+        this.successMessage = true;
       }
     )
   }

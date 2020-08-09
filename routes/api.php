@@ -30,6 +30,6 @@ Route::group([
     Route::get('user/{id}', 'Api\UserController@getUser');
     Route::delete('user/{id}', 'Api\UserController@delete');
     Route::put('user/{id}', 'Api\UserController@update');
-    Route::put('user/{id}/password', 'Api\UserController@changePassword');
+    Route::post('user/{id}/password', 'Api\UserController@changePassword');
 });
 

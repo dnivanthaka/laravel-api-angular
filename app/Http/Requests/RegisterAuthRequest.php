@@ -27,7 +27,7 @@ class RegisterAuthRequest extends FormRequest
             'name'    => 'required|string',
             'address' => 'required|string',
             'email'   => 'required|email|unique:users',
-            'password' => 'required|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/|min:8|max:12' 
+            'password' => 'required|confirmed|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/|min:8|max:12' 
         ];
     }
 }
