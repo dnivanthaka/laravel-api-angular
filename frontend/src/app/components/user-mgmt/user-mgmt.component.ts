@@ -21,10 +21,12 @@ export class User {
 
 export class UserMgmtComponent implements OnInit {
   public resetPasswordForm: FormGroup;
+  public detailsUpdateForm: FormGroup;
   public router: Router;
   public UserProfile: User;
   public users: Object;
   public resetPasswordActive: boolean;
+  public detailsUpdateActive: boolean;
 
   constructor(
     public authService: AuthService,
@@ -37,12 +39,18 @@ export class UserMgmtComponent implements OnInit {
       password_confirmation: [''],
       
     })
+    this.detailsUpdateForm = this.fb.group({
+      updateUserId: [''],
+      name: [''],
+      address: [''],
+      
+    })
     this.authService.profileUser().subscribe((data:any) => {
       this.UserProfile = data;
     });
 
     this.resetPasswordActive = false;
-
+    this.detailsUpdateActive = false;
   }
 
   ngOnInit() { 
@@ -68,6 +76,14 @@ export class UserMgmtComponent implements OnInit {
     }
   }
 
+  onDetailsUpdateClick(id, name: string, address: string){
+    this.detailsUpdateActive = true;
+
+    this.detailsUpdateForm.get('updateUserId').setValue(id);
+    this.detailsUpdateForm.get('name').setValue(name);
+    this.detailsUpdateForm.get('address').setValue(address);
+  }
+
   onResetSubmit(){
     let password = this.resetPasswordForm.controls['password'].value;
     let password_confirm = this.resetPasswordForm.controls['password_confirmation'].value;
@@ -87,6 +103,21 @@ export class UserMgmtComponent implements OnInit {
       alert('Password is now updated!');
       this.resetPasswordForm.reset();
       this.resetPasswordActive = false;
+    });
+  }
+
+  onDetailsUpdateSubmit(){
+    let name = this.detailsUpdateForm.controls['name'].value;
+    let address = this.detailsUpdateForm.controls['address'].value;
+    let id = this.detailsUpdateForm.controls['updateUserId'].value;
+
+    this.data.updateDetails(id, name, address).subscribe(data => {
+      alert('Details are now updated!');
+      this.detailsUpdateForm.reset();
+      this.detailsUpdateActive = false;
+      this.data.getUsers().subscribe(data => {
+        this.users = data;
+      });
     });
   }
 }

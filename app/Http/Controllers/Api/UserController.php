@@ -43,9 +43,9 @@ class UserController extends Controller
     }
 
     /**
-    * Returns a user
+    * Returns users
     */
-    public function getUsers(Request $request)
+    public function getUsers(GetUsersListRequest $request)
     {
         return response()->json(User::all());
     }

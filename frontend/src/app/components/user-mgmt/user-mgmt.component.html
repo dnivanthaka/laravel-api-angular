@@ -16,6 +16,20 @@
       <button type="submit" class="btn btn-block btn-primary">Update Password</button>
     </form>
     </div>
+    <div class="auth-wrapper" *ngIf="detailsUpdateActive">
+      <form class="form-detailsupdate" [formGroup]="detailsUpdateForm" (ngSubmit)="onDetailsUpdateSubmit()">
+      <input type="hidden" formControlName="updateUserId" value=""/>
+      <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" formControlName="name">
+      </div>
+      <div class="form-group">
+          <label>Address</label>
+          <textarea name="address" formControlName="address" class="form-control" cols="10" rows="5"></textarea>
+      </div>
+      <button type="submit" class="btn btn-block btn-primary">Update</button>
+    </form>
+    </div>
     <table class="table table-hover table-striped">
 	<thead>
 		<tr>
@@ -32,7 +46,7 @@
         <td>{{user.role}}</td>
         <td>
             <button type="button" class="btn btn-secondary" (click)="onResetPasswordClick(user.id)">Change Password</button> &nbsp;
-            <button type="button" class="btn btn-warning">Update</button> &nbsp;
+            <button type="button" class="btn btn-warning" (click)="onDetailsUpdateClick(user.id, user.name, user.address)">Update</button> &nbsp;
             <button type="button" class="btn btn-danger" (click)="deleteUser(user.name, user.id)">Delete</button>
         </td>
       </tr>

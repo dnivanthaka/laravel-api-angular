@@ -19,4 +19,8 @@ export class DataService {
   resetPassword(id, password){
     return this.http.post('http://localhost:8080/api/auth/user/'+id+'/password', {password: password});
   }
+
+  updateDetails(id, name, address){
+    return this.http.put('http://localhost:8080/api/auth/user/'+id, {name: name, address: address});
+  }
 }
